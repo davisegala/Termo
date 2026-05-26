@@ -34,7 +34,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         Estilo estilo = new Estilo(matrixJJLabel, matrixJPainel);        
         ProcessadorPalavra pp = new ProcessadorPalavra(matrixJJLabel, matrixJPainel, estilo);
-        pp.gerarPalavraChave();
+        
+        String palavra = pp.palavraAleatoria();
+        
+        System.out.println(palavra);
+        
+        pp.setPalavraChave(palavra);
         
         estilo.setCorTexto(Color.white);
 
