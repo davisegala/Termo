@@ -15,14 +15,14 @@ public class ProcessadorPalavra{
     private List<String> bancoPalavras;
     private Estilo estilo;
 
-    public ProcessadorPalavra(JLabel[][] matrixJJLabel, JPanel[][] matrixJPainel, Estilo estilo) {
+    public ProcessadorPalavra(JLabel[][] matrixJLabel, JPanel[][] matrixJPainel, Estilo estilo) {
         this.estilo = estilo;
         try { bancoPalavras = Files.readAllLines(Paths.get("src/Termo/BancoDePalavras.txt")); } catch (IOException e) {}
     }
     
     public boolean setPalavra(int linha, String palavra) {
-        String[] letras = palavra.split("");
-        return letraLocal(letras, linha-1);
+        String[] letras = palavra.split("");        
+        return letraLocal(letras, linha - 1);
     }
 
     private boolean letraLocal(String[] letras, int linha) {
@@ -88,5 +88,12 @@ public class ProcessadorPalavra{
 
     public String getPalavraChave() {
         return palavraChave;
+    }
+    
+    public void iniciarNovoJogo(JLabel jTxtUltimaPalavra) {
+        estilo.reiniciarTela(palavraChave, jTxtUltimaPalavra);
+        
+        this.palavraChave = palavraAleatoria();
+        this.ultimaPalavra = "";
     }
 }
