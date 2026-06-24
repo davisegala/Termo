@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -21,6 +24,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private JPanel[][] matrixJPanel;
     private JLabel[][] matrixJLabel;
+    private Map<String, JButton> teclas = new LinkedHashMap<>();
     
     // Configuracoes
     private final int tamanhoQuadrado = 55;
@@ -35,14 +39,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.addKeyListener(keyH);
         estilo.initLinha(0);
         estilo.setCorTexto(Color.white);
-    }
-
-    public JPanel[][] getMatrixJPanel() {
-        return matrixJPanel;
-    }
-
-    public JLabel[][] getMatrixJLabel() {
-        return matrixJLabel;
     }
     
     public void terminarJogo() {
@@ -131,11 +127,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     botao.setBackground(new Color(70, 60, 64));
                 }
                 case "⌫" -> botao.setPreferredSize(new Dimension(50, 45));
-                default -> botao.setPreferredSize(new Dimension(42, 45));
+                default -> {
+                    botao.setPreferredSize(new Dimension(42, 45));
+                    this.teclas.put(tecla.toLowerCase(), botao);
+                }
             }
             
             botao.addActionListener(e -> acaoBotaoTeclado(tecla));
-            
             painelLinha.add(botao);
         }
         
@@ -148,5 +146,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             case "⌫" -> pm.apagarLetra();
             default -> pm.addLetra(tecla);
         }
+    }
+
+    public JPanel[][] getMatrixJPanel() {
+        return matrixJPanel;
+    }
+
+    public JLabel[][] getMatrixJLabel() {
+        return matrixJLabel;
+    }
+
+    public Map<String, JButton> getTeclas() {
+        return teclas;
     }
 }

@@ -2,11 +2,12 @@ package Main;
 
 import Interface.TelaPrincipal;
 import java.awt.Color;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
+import java.util.Map;
+import javax.swing.*;
 
 public class Estilo {
     private final TelaPrincipal tp;
+    private final Map<String, JButton> teclas;
     
     private final int ESPESSURA_BORDA = 4;
     
@@ -19,6 +20,7 @@ public class Estilo {
 
     public Estilo(TelaPrincipal tp) {
         this.tp = tp;
+        this.teclas = tp.getTeclas();
     }
     
     public void setPalavra(int linha, String palavra) {
@@ -64,13 +66,18 @@ public class Estilo {
         }
     }
     
-    public void resultadoLinha(int linha, int[] resultado) {
+    public void resultadoLinha(int linha, int[] resultado, String[] palavra) {
         for (int i = 0; i < resultado.length; i++) {
+            Color cor = background;
+
             switch (resultado[i]) {
-                case 2 -> setCor(certa, linha, i);
-                case 1 -> setCor(lugarErrado, linha, i);
-                default -> setCor(errada, linha, i);
+                case 2 -> cor = certa;
+                case 1 ->  cor = lugarErrado;
+                default -> cor = errada;
             }
+
+            setCor(cor, linha, i);
+            teclas.get(palavra[i]).setBackground(cor);
         }
     }
     
@@ -87,7 +94,7 @@ public class Estilo {
             setCorLinha(vazio, vazio, i);
         }
         
-        for (JLabel linha[] : tp.getMatrixJLabel()) {
+        for (JLabel[] linha : tp.getMatrixJLabel()) {
             for (JLabel j : linha) j.setText("");
         }
     }

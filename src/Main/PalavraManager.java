@@ -95,7 +95,7 @@ public class PalavraManager implements Palavras {
             }
         }
 
-        estilo.resultadoLinha(linha, resultado);
+        estilo.resultadoLinha(linha, resultado, palavra.split(""));
     }
     
     private String getPalavra() {
